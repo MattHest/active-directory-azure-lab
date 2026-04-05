@@ -1,88 +1,84 @@
-# Active Directory Domain Deployment in Azure
+# Active Directory Deployment in Azure
 
-##  Overview
-In this lab, I built a basic enterprise-style network in Microsoft Azure.  
-I deployed a Domain Controller and a client machine, configured Active Directory, and managed users, permissions, and security policies.
+## Overview
+In this project, I built a basic Active Directory environment using Microsoft Azure. The setup includes a Windows Server domain controller and a Windows 10 client joined to the domain.
 
-
-
-##  Environment Setup
-- Created a Resource Group in Azure
-- Configured a Virtual Network and Subnet
-- Deployed:
-  - Windows Server 2022 VM (Domain Controller - DC-1)
-  - Windows 10 VM (Client-1)
-- Set DC-1 private IP to static
-- Configured Client-1 DNS to point to DC-1
+The goal was to simulate a small business environment where users are managed centrally and security policies are applied through Group Policy.
 
 ---
 
-## 🧠 Active Directory Configuration
-- Installed Active Directory Domain Services (AD DS)
-- Promoted server to Domain Controller
-- Created a new domain: `mydomain.com`
+## Environment Setup
+I created a virtual network in Azure and deployed two virtual machines:
+
+- DC-1 (Windows Server 2022) – Domain Controller  
+- Client-1 (Windows 10) – Domain-joined workstation  
+
+The domain controller was given a static private IP, and the client machine was configured to use it as its DNS server.
 
 ---
 
-## 👤 User and Group Management
-- Created Organizational Units:
-  - _EMPLOYEES
-  - _ADMINS
-  - _CLIENTS
-- Created users (ex: jane_admin)
-- Added user to Domain Admins group
+## Active Directory Configuration
+Active Directory Domain Services (AD DS) was installed on DC-1, and the server was promoted to a Domain Controller.
+
+I created a new domain: mydomain.com
+
+To organize users, I set up the following Organizational Units:
+- _EMPLOYEES  
+- _ADMINS  
+- _CLIENTS  
+
+User accounts were created and placed into the appropriate OUs. I also added an admin account to the Domain Admins group.
 
 ---
 
-## 💻 Client Integration
-- Joined Client-1 to the domain
-- Verified domain login using created user
+## Client Domain Join
+Client-1 was joined to the domain using domain credentials. After joining, I verified that users could log in successfully using their domain accounts.
+
+This confirmed that DNS and domain services were working correctly.
 
 ---
 
-## 🔐 Security & Access Control
-- Configured Group Policy:
-  - Account lockout threshold: 5 attempts
-  - Lockout duration: 30 minutes
-- Enabled RDP access for domain users
+## Group Policy Configuration
+I configured a basic account lockout policy through Group Policy to simulate security controls:
+
+- Lockout threshold: 5 failed attempts  
+- Lockout duration: 30 minutes  
+- Reset counter: 30 minutes  
+
+This shows how policies can be enforced across all users in the domain.
 
 ---
 
-## ⚙️ Automation
-- Used PowerShell to bulk create users
+## Troubleshooting
+During the setup, I ran into an issue where the client machine could not join the domain. This ended up being caused by incorrect DNS settings.
+
+After pointing the client’s DNS to the domain controller, the issue was resolved and the join worked as expected.
+
+I used the following tools to verify and troubleshoot:
+- `ipconfig /all`  
+- `ping`  
+- Active Directory Users and Computers  
 
 ---
 
-## 🧪 Troubleshooting & Validation
-- Verified DNS resolution
-- Used `ipconfig /all` to confirm settings
-- Tested domain login and lockout behavior
+## Screenshots
 
----
-
-## 📸 Screenshots
-
-### 🌐 Azure Virtual Machines
+### Azure Virtual Machines
 ![Azure VMs](azure-vms.png)
 
-### 🧠 Active Directory Users & Groups
+### Active Directory Structure
 ![AD Users](ad-admins.png)
 
-### 💻 Domain Join (Client-1)
+### Domain Join Verification
 ![Domain Join](domain-join.png)
 
-### 🔐 Group Policy (Account Lockout)
+### Group Policy Configuration
 ![Group Policy](group-policy.png)
 
 ---
 
-## 🚀 Key Skills Demonstrated
-- Active Directory setup and management
-- Group Policy configuration
-- Azure virtual networking
-- Troubleshooting and validation
-
----
-
-## 📌 Summary
-This project demonstrates hands-on experience with deploying and managing a Windows domain environment in a cloud setting.
+## Key Takeaways
+- Active Directory relies heavily on correct DNS configuration  
+- Organizational Units help keep users structured and manageable  
+- Group Policy allows centralized control over security settings  
+- Troubleshooting is a big part of the process, not just setup  
