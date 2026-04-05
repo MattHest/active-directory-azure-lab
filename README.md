@@ -1,12 +1,12 @@
 # Active Directory Domain Deployment in Azure
 
-## 📌 Overview
+##  Overview
 In this lab, I built a basic enterprise-style network in Microsoft Azure.  
 I deployed a Domain Controller and a client machine, configured Active Directory, and managed users, permissions, and security policies.
 
----
 
-## 🛠️ Environment Setup
+
+##  Environment Setup
 - Created a Resource Group in Azure
 - Configured a Virtual Network and Subnet
 - Deployed:
